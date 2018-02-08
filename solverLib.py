@@ -27,9 +27,9 @@ def solve_via_slsqp( constraintEqs, x0, bounds=None , iterations=160, fprime=Non
 
 class GradientApproximatorRandomPoints:
     def __init__(self, f):
-        '''samples random points around a given X. as to approximate the gradient.
-        Random sample should help to aviod saddle points.
-        Testing showed that noise on gradient causes to scipy.optimize.fmin_slsqp to bomb-out so does not really help...
+        '''echantillonne des points aleatoires autour d'un X donne pour approximer le gradient.
+        echantillon aleatoire devrait aider a eviter les points de selle.
+        Les tests ont montre que le bruit sur le gradient provoque scipy.optimize.fmin_slsqp a bombarder ainsi n aide pas vraiment...
         '''
         self.f = f
     def __call__(self, X, eps=10**-7):
@@ -53,7 +53,7 @@ class GradientApproximatorForwardDifference:
     def __init__(self, f):
         self.f = f
     def __call__(self, x, eps=10**-7, f0=None):
-        if hasattr(self.f,'addNote'): self.f.addNote('starting gradient approximation')
+        if hasattr(self.f,'addNote'): self.f.addNote('depart gradient approximation')
         n = len(x)
         if f0 == None:
             f0 = self.f(x)
@@ -65,7 +65,7 @@ class GradientApproximatorForwardDifference:
         for i in range(n):
             f_c = self.f( addEps(x,i,eps) )
             grad_f[i] = (f_c - f0)/eps
-        if hasattr(self.f,'addNote'): self.f.addNote('finished gradient approximation')
+        if hasattr(self.f,'addNote'): self.f.addNote('fin gradient approximation')
         return grad_f.transpose()
 
 class GradientApproximatorCentralDifference:
@@ -73,7 +73,7 @@ class GradientApproximatorCentralDifference:
         self.f = f
     def __call__(self, x, eps=10**-6):
         n = len(x)
-        if hasattr(self.f,'addNote'): self.f.addNote('starting gradient approximation')
+        if hasattr(self.f,'addNote'): self.f.addNote('depart gradient approximation')
         grad_f = None
         for i in range(n):
             f_a = self.f( addEps(x,i, eps) )
@@ -84,7 +84,7 @@ class GradientApproximatorCentralDifference:
                 else:
                     grad_f = numpy.zeros([n,len(f_a)])
             grad_f[i] = (f_a - f_b)/(2*eps)
-        if hasattr(self.f,'addNote'): self.f.addNote('finished gradient approximation')
+        if hasattr(self.f,'addNote'): self.f.addNote('fin gradient approximation')
         return grad_f.transpose()
 
 def solve_via_Newtons_method( f_org, x0, maxStep, grad_f=None, x_tol=10**-6, f_tol=None, maxIt=100, randomPertubationCount=2, 
@@ -187,9 +187,9 @@ class SearchAnalyticsWrapper:
         for i in range(len(self.x)):
             y = norm( self.f_x[i] ) + 10**-9
             if i in self.notes:
-                if self.notes[i] == 'starting gradient approximation':
+                if self.notes[i] == 'depart gradient approximation':
                     gradApprox = True
-                if self.notes[i] == 'finished gradient approximation':
+                if self.notes[i] == 'fin gradient approximation':
                     gradApprox = False
             if gradApprox:
                 it_ga.append( i )
@@ -225,15 +225,15 @@ if __name__ == '__main__':
     xRoots = solve_via_Newtons_method(f1, rand(2)+3, maxStep, x_tol=0, debugPrintLevel=2)
     #xRoots = solve_via_Newtons_method_LS(f1, grad_f1, rand(2)+3, maxStep, debugPrintLevel=3)
 
-    print('Testing GradientApproximatorRandomPoints')
-    print('now on f2, which returns a single real value')
+    print('Test GradientApproximatorRandomPoints')
+    print('now on f2, qui renvoie une seule vraie valeur')
     def f2(X) :
         y,z=X
         return y + y*z + (1.0-y)**3
     def grad_f2(X):
         y,z=X
         return  numpy.array([ 1 + z - 3*(1.0-y)**2, y ])
-    print('first on f2, which return a single real value')
+    print('first on f2, wqui renvoie une seule vraie valeur')
     grad_f_rp = GradientApproximatorRandomPoints(f2)
     grad_f_fd = GradientApproximatorForwardDifference(f2)
     grad_f_cd = GradientApproximatorCentralDifference(f2)

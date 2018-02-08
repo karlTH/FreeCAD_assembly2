@@ -8,7 +8,7 @@ class Proxy_muxAssemblyObj:
         pass
 
 def muxObjects(doc, mode=0):
-    'combines all the imported shape object in doc into one shape'
+    'combine tout l objet de forme importe dans doc en une forme'
     faces = []
 
     if mode == 1:
@@ -100,8 +100,8 @@ class MuxAssemblyCommand:
 
        
     def GetResources(self):
-        msg = 'Combine all parts into a single object \n\
-or combine all selected parts into a single object\n(for example to create a drawing of the whole or part of the assembly)'
+        msg = 'Combiner toutes les parties en un seul objet \n\
+ou combiner toutes les parties selectionnees en un seul objet\n(par exemple pour creer un dessin de tout ou partie de l assemblage)'
         return {
             'Pixmap' : ':/assembly2/icons/muxAssembly.svg',
             'MenuText': msg,
@@ -151,9 +151,9 @@ class MuxAssemblyRefreshCommand:
         
 
     def GetResources(self):
-        msg = 'Refresh all muxedAssembly\n\
-or refresh all selected muxedAssembly\n\
-use the ReadOnly property to avoid accidental refresh'
+        msg = 'Rafraichir tout l assemblage mixte\n\
+ou rafraichir tout l assemblage mixte selectionne\n\
+utilisez la propriete Lecture seule pour eviter une actualisation accidentelle'
         return {
             'Pixmap' : ':/assembly2/icons/muxAssemblyRefresh.svg',
             'MenuText': msg,
@@ -176,8 +176,8 @@ class RandomColorAllCommand:
 
     def GetResources(self):
         return {
-            'MenuText': 'Apply a random color to all imported objects',
-            'ToolTip': 'Apply a random color to all imported objects'
+            'MenuText': 'Appliquer une couleur aleatoire aa tous les objets importes',
+            'ToolTip': 'Appliquer une couleur aleatoire aa tous les objets importes'
             }
 
 FreeCADGui.addCommand('assembly2_randomColorAll', RandomColorAllCommand())

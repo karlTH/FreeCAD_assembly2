@@ -26,7 +26,7 @@ def parseSelection(selection, objectToUpdate=None):
                                [s2.ObjectName, s2.SubElementNames[0], s2.Object.Label ] ]
                     debugPrint(4,'cParms = %s' % (cParms))
      if not validSelection:
-          msg = '''To add an axial constraint select two cylindrical surfaces or two straight lines, each from a different part. Selection made:
+          msg = '''Pour ajouter une contrainte axiale, selectionnez deux surfaces cylindriques ou deux droites, chacune provenant d une partie differente. Selection faite:
 %s'''  % printSelection(selection)
           QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Incorrect Usage", msg)
           return 
@@ -77,8 +77,8 @@ def parseSelection(selection, objectToUpdate=None):
      repair_tree_view()
 
 selection_text = '''Selection options:
-  - cylindrical surface
-  - edge 
+  - surface cylindrique
+  - sommet 
   - face '''
 
 class AxialConstraintCommand:
@@ -92,15 +92,15 @@ class AxialConstraintCommand:
                ConstraintSelectionObserver( 
                     AxialSelectionGate(), 
                     parseSelection,
-                    taskDialog_title ='add axial constraint', 
+                    taskDialog_title ='ajouter une contrainte axiale', 
                     taskDialog_iconPath = self.GetResources()['Pixmap'], 
                     taskDialog_text = selection_text
                     )
      def GetResources(self): 
           return {
                'Pixmap' : ':/assembly2/icons/axialConstraint.svg', 
-               'MenuText': 'Add axial constraint', 
-               'ToolTip': 'Add an axial constraint between two objects'
+               'MenuText': 'ajouter une contrainte axiale', 
+               'ToolTip': 'Ajouter une contrainte axiale entre deux objets'
                } 
 
 FreeCADGui.addCommand('addAxialConstraint', AxialConstraintCommand())
@@ -113,7 +113,7 @@ class RedefineConstraintCommand:
         ConstraintSelectionObserver( 
              AxialSelectionGate(), 
              self.UpdateConstraint,
-             taskDialog_title ='redefine axial constraint', 
+             taskDialog_title ='redefinir la contrainte axiale', 
              taskDialog_iconPath = ':/assembly2/icons/axialConstraint.svg', 
              taskDialog_text = selection_text
              )
@@ -124,5 +124,5 @@ class RedefineConstraintCommand:
     def UpdateConstraint(self, selection):
         parseSelection( selection, self.constObject)
     def GetResources(self): 
-        return { 'MenuText': 'Redefine' } 
+        return { 'MenuText': 'Redefinir' } 
 FreeCADGui.addCommand('redefineAxialConstraint', RedefineConstraintCommand())

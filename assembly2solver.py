@@ -33,28 +33,28 @@ def constraintsObjectsAllExist( doc ):
         if 'ConstraintInfo' in obj.Content:
             if not (obj.Object1 in objectNames and obj.Object2 in objectNames):
                 flags = QtGui.QMessageBox.StandardButton.Yes | QtGui.QMessageBox.StandardButton.Abort
-                message = "%s is refering to an object no longer in the assembly. Delete constraint? otherwise abort solving." % obj.Name
+                message = "%s fait reference a un objet qui n'est plus dans l'assemblage. Supprimer la contrainte? sinon annuler la resolution." % obj.Name
                 response = QtGui.QMessageBox.critical(QtGui.qApp.activeWindow(), "Broken Constraint", message, flags )
                 if response == QtGui.QMessageBox.Yes:
-                    FreeCAD.Console.PrintError("removing constraint %s" % obj.Name)
+                    FreeCAD.Console.PrintError("suppression de la contrainte %s" % obj.Name)
                     doc.removeObject(obj.Name)
                 else:
                     missingObject = obj.Object2 if obj.Object1 in objectNames else obj.Object1
-                    FreeCAD.Console.PrintError("aborted solving constraints due to %s refering the non-existent object %s" % (obj.Name, missingObject))
+                    FreeCAD.Console.PrintError("annulation des contraintes de resolution dues a %s faisant reference a l'objet inexistant %s" % (obj.Name, missingObject))
                     return False            
     return True
     
 def findBaseObject( doc, objectNames  ):
-    debugPrint( 4,'solveConstraints: searching for fixed object to begin solving constraints from.' )
+    debugPrint( 4,'solveConstraints: recherche d\'un objet fixe pour commencer a resoudre les contraintes de.' )
     fixed = [ getattr( doc.getObject( name ), 'fixedPosition', False ) for name in objectNames ]
     if sum(fixed) > 0:
         return objectNames[ fixed.index(True) ]        
     if sum(fixed) == 0:
-        debugPrint( 1, 'It is recommended that the assembly 2 module is used with parts imported using the assembly 2 module.')
-        debugPrint( 1, 'This allows for part updating, parts list support, object copying (shift + assembly2 move) and also tells the solver which objects to treat as fixed.')
-        debugPrint( 1, 'since no objects have the fixedPosition attribute, fixing the postion of the first object in the first constraint')
-        debugPrint( 1, 'assembly 2 solver: assigning %s a fixed position' % objectNames[0])
-        debugPrint( 1, 'assembly 2 solver: assigning %s, %s a fixed position' % (objectNames[0], doc.getObject(objectNames[0]).Label))
+        debugPrint( 1, 'Il est recommande d\'utiliser le module d\'assemblage 2 avec des pieces importees en utilisant le module d\'assemblage 2.')
+        debugPrint( 1, 'Cela permet la mise a jour des pieces, la prise en charge de la liste de pieces, la copie d\'objets (shift + assembly2 move) et indique au solveur quels sont les objets a traiter comme fixes.')
+        debugPrint( 1, 'puisque aucun objet n\'a l\'attribut Position fixe, fixant la position du premier objet dans la premiere contrainte')
+        debugPrint( 1, 'assembly 2 solver: assigner %s a une position fixe' % objectNames[0])
+        debugPrint( 1, 'assembly 2 solver: assigner %s a une position fixe' % (objectNames[0], doc.getObject(objectNames[0]).Label))
         return objectNames[0]
 
 def solveConstraints( doc, showFailureErrorDialog=True, printErrors=True, cache=None ):
@@ -173,8 +173,8 @@ class Assembly2SolveConstraintsCommand:
     def GetResources(self): 
         return {
             'Pixmap' : ':/assembly2/icons/assembly2SolveConstraints.svg', 
-            'MenuText': 'Solve Assembly 2 constraints', 
-            'ToolTip': 'Solve Assembly 2 constraints'
+            'MenuText': 'Resoudre les contraintes Assembly 2', 
+            'ToolTip': 'Resoudre les contraintes Assembly 2'
             } 
 
 FreeCADGui.addCommand('assembly2SolveConstraints', Assembly2SolveConstraintsCommand())

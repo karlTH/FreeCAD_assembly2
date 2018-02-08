@@ -12,7 +12,7 @@ class AnimateCommand:
         self.taskPanel = AnimateDegreesOfFreedomTaskPanel( constraintSystem )
         FreeCADGui.Control.showDialog( self.taskPanel )
     def GetResources(self): 
-        msg = 'Animate degrees of freedom'
+        msg = 'Animer des degres de liberte'
         return {
             'Pixmap' : ':/assembly2/icons/degreesOfFreedomAnimation.svg', 
             'MenuText': msg, 
@@ -46,7 +46,7 @@ class AnimateDegreesOfFreedomTaskPanel:
             moduleVars['animation'] = AnimateDOF(self.constraintSystem, degreesOfFreedomToAnimate, ms_per_frame, frames_per_DOF, rotationAmplification, linearDispAmplification)
             #moduleVars['animation'] assignment required to protect the QTimer from the garbage collector
         else:
-            FreeCAD.Console.PrintError('Aborting Animation! Constraint system has no degrees of freedom.')
+            FreeCAD.Console.PrintError('Abandonner l animation! Le systeme de contraintes n a aucun degre de liberte.')
             FreeCADGui.Control.closeDialog()
 
     def setIntialValues(self):
@@ -154,9 +154,9 @@ class AnimateDOF(object):
             self.constraintSystem.variableManager.updateFreeCADValues( self.constraintSystem.variableManager.X )
             debugPrint(5,'updated assembly')
         except:
-            FreeCAD.Console.PrintError('AnimateDegreeOfFreedom (dof %i, dof frame %i) unable to update constraint system\n'  % (self.dof_count, self.count))
+            FreeCAD.Console.PrintError('AnimateDegreeOfFreedom (dof %i, dof frame %i)incapable de mettre a jour constraint system\n'  % (self.dof_count, self.count))
             FreeCAD.Console.PrintError(traceback.format_exc())
-        debugPrint(5,'finished timer loop')
+        debugPrint(5,'boucle de minuterie terminee')
 
 def base_rotation_dof(d):
     if isinstance(d,degreesOfFreedom.PlacementDegreeOfFreedom) and  hasattr(d, 'ind'):

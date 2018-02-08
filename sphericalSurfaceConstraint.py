@@ -11,7 +11,7 @@ class SphericalSurfaceSelectionGate:
         if sub.startswith('Face'):
             face = getObjectFaceFromName( obj, sub)
             return str( face.Surface ).startswith('Sphere ')
-        elif sub.startswith('Vertex'):
+        elif sub.startswith('Sommet'):
             return True
         else:
             return False
@@ -29,7 +29,7 @@ def parseSelection(selection, objectToUpdate=None):
                                [s2.ObjectName, s2.SubElementNames[0], s2.Object.Label ] ]
 
     if not validSelection:
-          msg = '''To add a spherical surface constraint select two spherical surfaces (or vertexs), each from a different part. Selection made:
+          msg = '''Pour ajouter une contrainte de surface spherique, selectionnez deux surfaces spheriques (ou vertex), chacune d une partie differente. Selection faite:
 %s'''  % printSelection(selection)
           QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Incorrect Usage", msg)
           return 
@@ -91,7 +91,7 @@ class SphericalSurfaceConstraintCommand:
             ConstraintSelectionObserver( 
                 SphericalSurfaceSelectionGate(), 
                 parseSelection,
-                taskDialog_title ='add spherical surface constraint', 
+                taskDialog_title ='ajouter une contrainte de surface spherique', 
                 taskDialog_iconPath = self.GetResources()['Pixmap'], 
                 taskDialog_text = selection_text
                 )
@@ -99,8 +99,8 @@ class SphericalSurfaceConstraintCommand:
     def GetResources(self): 
         return {
             'Pixmap' : ':/assembly2/icons/sphericalSurfaceConstraint.svg', 
-            'MenuText': 'Add a spherical surface constraint', 
-            'ToolTip': 'Add a spherical surface constraint between two objects'
+            'MenuText': 'ajouter une contrainte de surface spherique', 
+            'ToolTip': 'Ajouter une contrainte de surface spherique entre deux objets'
             } 
 
 FreeCADGui.addCommand('addSphericalSurfaceConstraint', SphericalSurfaceConstraintCommand())
@@ -114,7 +114,7 @@ class RedefineSphericalSurfaceConstraintCommand:
         ConstraintSelectionObserver( 
             SphericalSurfaceSelectionGate(), 
             self.UpdateConstraint,
-            taskDialog_title ='redefine spherical surface constraint', 
+            taskDialog_title ='redefinir la contrainte de surface spherique', 
             taskDialog_iconPath = ':/assembly2/icons/sphericalSurfaceConstraint.svg', 
             taskDialog_text = selection_text
             )

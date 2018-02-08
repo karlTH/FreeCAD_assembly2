@@ -24,18 +24,18 @@ def importPart( filename, partName=None, doc_assembly=None ):
         doc_assembly = FreeCAD.ActiveDocument
     updateExistingPart = partName != None
     if updateExistingPart:
-        FreeCAD.Console.PrintMessage("updating part %s from %s\n" % (partName,filename))
+        FreeCAD.Console.PrintMessage("mise a jour piece %s depuis %s\n" % (partName,filename))
     else:
-        FreeCAD.Console.PrintMessage("importing part from %s\n" % filename)
+        FreeCAD.Console.PrintMessage("importer piece depuis %s\n" % filename)
     doc_already_open = filename in [ d.FileName for d in FreeCAD.listDocuments().values() ]
     debugPrint(4, "%s open already %s" % (filename, doc_already_open))
     if doc_already_open:
         doc = [ d for d in FreeCAD.listDocuments().values() if d.FileName == filename][0]
     else:
         if filename.lower().endswith('.fcstd'):
-            debugPrint(4, '  opening %s' % filename)
+            debugPrint(4, '  ouverture %s' % filename)
             doc = FreeCAD.openDocument(filename)
-            debugPrint(4, '  succesfully opened %s' % filename)
+            debugPrint(4, '  ouvert avec succes %s' % filename)
         else: #trying shaping import http://forum.freecadweb.org/viewtopic.php?f=22&t=12434&p=99772#p99772x
             import ImportGui
             doc = FreeCAD.newDocument( os.path.basename(filename) )
@@ -48,7 +48,7 @@ def importPart( filename, partName=None, doc_assembly=None ):
     debugPrint(3, '%s objects %s' % (doc.Name, doc.Objects))
     if any([ 'importPart' in obj.Content for obj in doc.Objects]) and not len(visibleObjects) == 1:
         subAssemblyImport = True
-        debugPrint(2, 'Importing subassembly from %s' % filename)
+        debugPrint(2, 'Importer subassembly depuis %s' % filename)
         tempPartName = 'import_temporary_part'
         obj_to_copy = doc_assembly.addObject("Part::FeaturePython",tempPartName)
         obj_to_copy.Proxy = Proxy_muxAssemblyObj()
@@ -61,10 +61,10 @@ def importPart( filename, partName=None, doc_assembly=None ):
         subAssemblyImport = False
         if len(visibleObjects) != 1:
             if not updateExistingPart:
-                msg = "A part can only be imported from a FreeCAD document with exactly one visible part. Aborting operation"
+                msg = "Une piece ne peut etre importee qu'a partir d'un document FreeCAD avec exactement une partie visible. Operation d'interruption"
                 QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Value Error", msg )
             else:
-                msg = "Error updating part from %s: A part can only be imported from a FreeCAD document with exactly one visible part. Aborting update of %s" % (partName, filename)
+                msg = "Erreur lors de la mise a jour de la piece a partir de %s : Une piece ne peut etre importee qu'a partir d'un document FreeCAD avec exactement une piece visible. Annulation de la mise a jour de% s" % (partName, filename)
             QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Value Error", msg )
         #QtGui.QMessageBox.warning( QtGui.qApp.activeWindow(), "Value Error!", msg, QtGui.QMessageBox.StandardButton.Ok )
             return
@@ -137,7 +137,7 @@ class ImportPartCommand:
             QtGui.qApp.activeWindow(),
             "Select FreeCAD document to import part from"
             )
-        dialog.setNameFilter("Supported Formats (*.FCStd *.brep *.brp *.imp *.iges *.igs *.obj *.step *.stp);;All files (*.*)")
+        dialog.setNameFilter("Formats pris en charge (*.FCStd *.brep *.brp *.imp *.iges *.igs *.obj *.step *.stp);;All files (*.*)")
         if dialog.exec_():
             filename = dialog.selectedFiles()[0]
         else:
@@ -159,8 +159,8 @@ class ImportPartCommand:
     def GetResources(self):
         return {
             'Pixmap' : ':/assembly2/icons/importPart.svg',
-            'MenuText': 'Import a part from another FreeCAD document',
-            'ToolTip': 'Import a part from another FreeCAD document'
+            'MenuText': 'Importer une piece depuis un autre document FreeCAD',
+            'ToolTip': 'Importer une piece depuis un autre document FreeCAD'
             }
 FreeCADGui.addCommand('importPart', ImportPartCommand())
 
@@ -194,8 +194,8 @@ def path_rel_to_abs(path):
     j = FreeCAD.ActiveDocument.FileName.rfind('/')
     k = path.find('/')
     absPath = FreeCAD.ActiveDocument.FileName[:j] + path[k:]
-    FreeCAD.Console.PrintMessage("First %s\n" % FreeCAD.ActiveDocument.FileName[:j])
-    FreeCAD.Console.PrintMessage("Next %s\n" % path[k:])
+    FreeCAD.Console.PrintMessage("Prmier %s\n" % FreeCAD.ActiveDocument.FileName[:j])
+    FreeCAD.Console.PrintMessage("Suivant %s\n" % path[k:])
     FreeCAD.Console.PrintMessage("absolutePath is %s\n" % absPath)
     if path.startswith('.') and os.path.exists( absPath ):
         return absPath
@@ -295,8 +295,8 @@ class UpdateImportedPartsCommand:
     def GetResources(self):
         return {
             'Pixmap' : ':/assembly2/icons/importPart_update.svg',
-            'MenuText': 'Update parts imported into the assembly',
-            'ToolTip': 'Update parts imported into the assembly'
+            'MenuText': 'Mettre a jour les pieces importees dans l\'assemblage',
+            'ToolTip': 'Mettre a jour les pieces importees dans l\'assemblage'
             }
 
 
@@ -395,8 +395,8 @@ class MovePartCommand:
     def GetResources(self):
         return {
             'Pixmap' : ':/assembly2/icons/Draft_Move.svg',
-            'MenuText': 'move',
-            'ToolTip': 'move part  ( shift+click to copy )'
+            'MenuText': 'Deplacer',
+            'ToolTip': 'Deplacer la piece  ( shift+click to copy )'
             }
 
 FreeCADGui.addCommand('assembly2_movePart', MovePartCommand())
@@ -487,7 +487,7 @@ class DeletePartsConstraints:
                     removeConstraint(c)
     def GetResources(self):
         return {
-            'MenuText': 'delete constraints',
+            'MenuText': 'suppimer la contrainte',
             }
 FreeCADGui.addCommand('assembly2_deletePartsConstraints', DeletePartsConstraints())
 

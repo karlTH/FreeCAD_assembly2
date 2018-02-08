@@ -24,7 +24,7 @@ def parseSelection(selection, objectToUpdate=None, callSolveConstraints=True, lo
                        [s2.ObjectName, s2.SubElementNames[0], s2.Object.Label ] ]
             debugPrint(4,'cParms = %s' % (cParms))
     if not validSelection:
-          msg = '''To add a circular edge constraint select two circular edges, each from a different part. Selection made:
+          msg = '''Pour ajouter une contrainte de contour circulaire, selectionnez deux aretes circulaires, chacune d une partie differente. Selection faite:
 %s'''  % printSelection(selection)
           QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Incorrect Usage", msg)
           return 
@@ -41,7 +41,7 @@ def parseSelection(selection, objectToUpdate=None, callSolveConstraints=True, lo
         c.addProperty("App::PropertyString","SubElement2","ConstraintInfo").SubElement2 = cParms[1][1]
     
         c.addProperty("App::PropertyEnumeration","directionConstraint", "ConstraintInfo")
-        c.directionConstraint = ["none","aligned","opposed"]
+        c.directionConstraint = ["none","aligne","oppose"]
         c.addProperty("App::PropertyDistance","offset","ConstraintInfo")
         c.addProperty("App::PropertyBool","lockRotation","ConstraintInfo").lockRotation = lockRotation
     
@@ -81,7 +81,7 @@ def parseSelection(selection, objectToUpdate=None, callSolveConstraints=True, lo
     return c
     
 
-selection_text = '''Select circular edges or faces'''
+selection_text = '''Selectionner des aretes ou des faces circulaires'''
 
 class CircularEdgeConstraintCommand:
     def Activated(self):
@@ -93,7 +93,7 @@ class CircularEdgeConstraintCommand:
             ConstraintSelectionObserver( 
                 CircularEdgeSelectionGate(), 
                 parseSelection,
-                taskDialog_title ='add circular edge constraint', 
+                taskDialog_title ='ajouter une contrainte de contour circulaire', 
                 taskDialog_iconPath = self.GetResources()['Pixmap'], 
                 taskDialog_text = selection_text
                 )
@@ -101,8 +101,8 @@ class CircularEdgeConstraintCommand:
     def GetResources(self): 
         return {
             'Pixmap' : ':/assembly2/icons/circularEdgeConstraint.svg' , 
-            'MenuText': 'Add circular edge constraint', 
-            'ToolTip': 'Add a circular edge constraint between two objects'
+            'MenuText': 'Ajouter une contrainte de contour circulaire', 
+            'ToolTip': 'Ajouter une contrainte de contour circulaire entre deux objets'
             } 
 
 FreeCADGui.addCommand('addCircularEdgeConstraint', CircularEdgeConstraintCommand())
@@ -116,7 +116,7 @@ class RedefineCircularEdgeConstraintCommand:
         ConstraintSelectionObserver( 
                 CircularEdgeSelectionGate(), 
                 self.UpdateConstraint,
-                taskDialog_title ='redefine circular edge constraint', 
+                taskDialog_title ='redefinir une contrainte de contour circulaire', 
                 taskDialog_iconPath = ':/assembly2/icons/circularEdgeConstraint.svg', 
                 taskDialog_text = selection_text
                 )
@@ -125,7 +125,7 @@ class RedefineCircularEdgeConstraintCommand:
         parseSelection( selection, self.constObject)
 
     def GetResources(self): 
-        return { 'MenuText': 'Redefine' } 
+        return { 'MenuText': 'Redefinir' } 
 FreeCADGui.addCommand('redefineCircularEdgeConstraint', RedefineCircularEdgeConstraintCommand())
 
 
@@ -134,32 +134,32 @@ class FlipLastConstraintsDirectionCommand:
         constraints = [ obj for obj in FreeCAD.ActiveDocument.Objects 
                         if 'ConstraintInfo' in obj.Content ]
         if len(constraints) == 0:
-            QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Command Aborted", 'Flip aborted since no assembly2 constraints in active document.')
+            QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Commande abandonnee", 'Flip annule car aucune contrainte assembly2 dans le document actif.')
             return
         lastConstraintAdded = constraints[-1]
         if hasattr( lastConstraintAdded, 'directionConstraint' ):
             if lastConstraintAdded.directionConstraint == "none":
-                QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Command Aborted", 'Flip aborted since direction of the last constraint is unset')
+                QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Commande abandonnee", 'Flip annule puisque la direction de la derniere contrainte est desactivee')
                 return
-            if lastConstraintAdded.directionConstraint == "aligned":
-                lastConstraintAdded.directionConstraint = "opposed"
+            if lastConstraintAdded.directionConstraint == "aligne":
+                lastConstraintAdded.directionConstraint = "oppose"
             else:
-                lastConstraintAdded.directionConstraint = "aligned"
+                lastConstraintAdded.directionConstraint = "aligne"
         elif hasattr( lastConstraintAdded, 'angle' ):
             if lastConstraintAdded.angle.Value <= 0:
                 lastConstraintAdded.angle = lastConstraintAdded.angle.Value + 180.0
             else:
                 lastConstraintAdded.angle = lastConstraintAdded.angle.Value - 180.0
         else:
-            QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Command Aborted", 'Flip aborted since the last constraint added does not have a direction or an angle attribute.')
+            QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Commande abandonnee", 'Retourner annule puisque la derniere contrainte ajoutee n a pas de direction ou d attribut d angle.')
             return
         FreeCAD.ActiveDocument.recompute()
 
     def GetResources(self): 
         return {
             'Pixmap' : ':/assembly2/icons/flipConstraint.svg' , 
-            'MenuText': "Flip last constraint's direction", 
-            'ToolTip': 'Flip the direction of the last constraint added'
+            'MenuText': "Retourner la derniere direction de la contrainte", 
+            'ToolTip': 'Retourne la direction de la derniere contrainte ajoutee'
             } 
 
 FreeCADGui.addCommand('flipLastConstraintsDirection', FlipLastConstraintsDirectionCommand())
@@ -171,7 +171,7 @@ class LockRotationOfLastConstraintAddedCommand:
         constraints = [ obj for obj in FreeCAD.ActiveDocument.Objects 
                         if 'ConstraintInfo' in obj.Content ]
         if len(constraints) == 0:
-            QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Command Aborted", 'Set LockRotation=True aborted since no assembly2 constraints in active document.')
+            QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Commande abandonnee", 'Set LockRotation = True abandonne car aucune contrainte assembly2 dans le document actif.')
             return
         lastConstraintAdded = constraints[-1]
         if hasattr( lastConstraintAdded, 'lockRotation' ):
@@ -187,8 +187,8 @@ class LockRotationOfLastConstraintAddedCommand:
     def GetResources(self): 
         return {
             'Pixmap' : ':/assembly2/icons/lockRotation.svg' , 
-            'MenuText': "Set lockRotation->True for the last constraint added", 
-            'ToolTip': 'Set lockRotation->True for the last constraint added'
+            'MenuText': "Definissez lockRotation-> True pour la derniere contrainte ajoutee", 
+            'ToolTip': 'Definissez lockRotation-> True pour la derniere contrainte ajoutee'
             } 
 
 FreeCADGui.addCommand('lockLastConstraintsRotation', LockRotationOfLastConstraintAddedCommand())

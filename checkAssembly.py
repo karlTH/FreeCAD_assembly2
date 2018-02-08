@@ -6,11 +6,11 @@ moduleVars = {}
 
 class CheckAssemblyCommand:
     def Activated(self):
-        debugPrint(2, 'Conducting Assembly Part Overlap Check for: %s' % FreeCAD.ActiveDocument.Label)
+        debugPrint(2, 'Verification du chevauchement des pieces de montage: %s' % FreeCAD.ActiveDocument.Label)
         objects = [obj for obj in FreeCAD.ActiveDocument.Objects if hasattr(obj, 'Shape') and obj.Name != 'muxedAssembly']
         n = len(objects)
         no_of_checks = 0.5*(n-1)*(n)
-        moduleVars['progressDialog'] = QtGui.QProgressDialog("Checking assembly", "Cancel", 0, no_of_checks)#, QtGui.qApp.activeWindow()) with parent cancel does not work for some reason
+        moduleVars['progressDialog'] = QtGui.QProgressDialog("Verification de l assemblage", "Annuler", 0, no_of_checks)#, QtGui.qApp.activeWindow()) with parent cancel does not work for some reason
         p = moduleVars['progressDialog']
         p.setWindowModality(QtCore.Qt.WindowModal)
         p.forceShow()
@@ -21,7 +21,7 @@ class CheckAssemblyCommand:
         for i in range(0, len(objects)-1):
             for j in range(i+1, len(objects)):
                 if not p.wasCanceled():
-                    msg = 'overlap check between:   "%s"  &  "%s"' % (objects[i].Label, objects[j].Label)
+                    msg = 'verification de chevauchement entre:   "%s"  &  "%s"' % (objects[i].Label, objects[j].Label)
                     debugPrint(3, '  ' + msg)
                     p.setLabelText(msg)
                     p.setValue(count)
@@ -36,26 +36,26 @@ class CheckAssemblyCommand:
                             errorMsgs.append('Unable to perform %s:\n' % msg)
                             FreeCAD.Console.PrintError(traceback.format_exc())
                     else:
-                        debugPrint(3, '    skipping check based on boundBoxesOverlap check')
+                        debugPrint(3, '    sauter la verification base sur le controle boundBoxesOverlap')
                     count = count + 1
                 else:            
                     break
-        debugPrint(3, 'ProgressDialog canceled %s' % p.wasCanceled())
+        debugPrint(3, 'ProgressDialog annule %s' % p.wasCanceled())
         if not p.wasCanceled():
             p.setValue(count)
-            debugPrint(2, 'Assembly overlap check duration:    %3.1fs' % (time.time() - t_start) )
-            errorMsg = '\n\nWARNING: %i Check(s) could not be conducted:\n  - %s' % (len(errorMsgs), "  \n  - ".join(errorMsgs)) if len(errorMsgs) > 0 else ''
+            debugPrint(2, 'Duree de verification du chevauchement d assemblage:    %3.1fs' % (time.time() - t_start) )
+            errorMsg = '\n\nATTENTION: %i verification(s) n a pas pu etre menee:\n  - %s' % (len(errorMsgs), "  \n  - ".join(errorMsgs)) if len(errorMsgs) > 0 else ''
             #p.setValue(no_of_checks)
             if len(overlapMsgs) > 0:
                 #flags |= QtGui.QMessageBox.Ignore
                 message = "Overlap detected between:\n  - %s" % "  \n  - ".join(overlapMsgs)
                 message = message + '\n\n*overlap.Volume / min( shape1.Volume, shape2.Volume )'
                 FreeCAD.Console.PrintError( message + '\n' )
-                response = QtGui.QMessageBox.critical(QtGui.qApp.activeWindow(), "Assembly Check", message + errorMsg)#, flags)
+                response = QtGui.QMessageBox.critical(QtGui.qApp.activeWindow(), "Verification de l assemblage", message + errorMsg)#, flags)
             else:
-                QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Assembly Check", "Passed:\n  - No overlap/interferance dectected." + errorMsg)
+                QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Verification de l assemblage", "Passe:\n  -Aucun chevauchement / interference detectee." + errorMsg)
     def GetResources(self): 
-        msg = 'Check assembly for part overlap/interferance'
+        msg = 'Verifier l\'assemblage pour le chevauchement / l\'interference des pieces'
         return {
             'Pixmap' : ':/assembly2/icons/checkAssembly.svg', 
             'MenuText': msg, 

@@ -22,7 +22,7 @@ def parseSelection(selection, objectToUpdate=None):
                     cParms = [ [s1.ObjectName, s1.SubElementNames[0], s1.Object.Label ],
                                [s2.ObjectName, s2.SubElementNames[0], s2.Object.Label ] ]
      if not validSelection:
-          msg = '''Angle constraint requires a selection of 2 planes or two straight lines/axis, each from different objects.Selection made:
+          msg = '''La contrainte d angle necessite une selection de 2 plans ou de deux droites / axes, chacun des objets differents. Selection faite:
 %s'''  % printSelection(selection)
           QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Incorrect Usage", msg)
           return 
@@ -72,9 +72,9 @@ def parseSelection(selection, objectToUpdate=None):
          
 
 selection_text = '''Selection options:
-  - plane surface
-  - edge 
-  - axis of plane selected'''
+  - surface plane
+  - sommet 
+  - axe du plan selectionne'''
 
 class AngleConstraintCommand:
      def Activated(self):
@@ -87,12 +87,12 @@ class AngleConstraintCommand:
                ConstraintSelectionObserver( 
                     PlaneSelectionGate(), 
                     parseSelection,
-                    taskDialog_title ='add angular constraint', 
+                    taskDialog_title ='ajouter une contrainte angulaire', 
                     taskDialog_iconPath = self.GetResources()['Pixmap'], 
                     taskDialog_text = selection_text )
                
      def GetResources(self): 
-          msg = 'Create an angular constraint between two planes'
+          msg = 'Creer une contrainte angulaire entre deux plans'
           return {
                'Pixmap' : ':/assembly2/icons/angleConstraint.svg', 
                'MenuText': msg, 
@@ -105,12 +105,12 @@ FreeCADGui.addCommand('addAngleConstraint', AngleConstraintCommand())
 class RedefineConstraintCommand:
     def Activated(self):
         self.constObject = FreeCADGui.Selection.getSelectionEx()[0].Object
-        debugPrint(3,'redefining %s' % self.constObject.Name)
+        debugPrint(3,'redefinir %s' % self.constObject.Name)
         FreeCADGui.Selection.clearSelection()
         ConstraintSelectionObserver( 
              PlaneSelectionGate(), 
              self.UpdateConstraint,
-             taskDialog_title ='redefine angular constraint', 
+             taskDialog_title ='redefinir contrainte angulaire', 
              taskDialog_iconPath = ':/assembly2/icons/angleConstraint.svg', 
              taskDialog_text = selection_text )
 
@@ -118,5 +118,5 @@ class RedefineConstraintCommand:
         parseSelection( selection, self.constObject)
 
     def GetResources(self): 
-        return { 'MenuText': 'Redefine' } 
+        return { 'MenuText': 'Redefinir' } 
 FreeCADGui.addCommand('redefineAngleConstraint', RedefineConstraintCommand())

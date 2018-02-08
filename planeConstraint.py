@@ -31,11 +31,12 @@ def parseSelection(selection, objectToUpdate=None):
                     cParms = [ [s1.ObjectName, s1.SubElementNames[0], s1.Object.Label ],
                                [s2.ObjectName, s2.SubElementNames[0], s2.Object.Label ] ]
      if not validSelection:
-          msg = '''Plane constraint requires a selection of either
-- 2 planes, or
-- 1 plane and 1 vertex 
+          msg = '''La contrainte de plan necessite une selection de
 
-Selection made:
+- 2 plans, ou
+- 1 plan and 1 sommet 
+
+Selection faite:
 %s'''  % printSelection(selection)
           QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Incorrect Usage", msg)
           return 
@@ -92,10 +93,10 @@ Selection made:
          
 
 selection_text = '''Selection 1 options:
-  - plane
+  - plan
 Selection 2 options:
-  - plane
-  - vertex '''
+  - plan
+  - sommet '''
 
 class PlaneConstraintCommand:
      def Activated(self):
@@ -116,8 +117,8 @@ class PlaneConstraintCommand:
      def GetResources(self): 
           return {
                'Pixmap' : ':/assembly2/icons/planeConstraint.svg', 
-               'MenuText': 'Add plane constraint', 
-               'ToolTip': 'Add a plane constraint between two objects'
+               'MenuText': 'Ajouter une contrainte de plan', 
+               'ToolTip': 'Ajouter une contrainte de plan entre deux objets'
                } 
 
 FreeCADGui.addCommand('addPlaneConstraint', PlaneConstraintCommand())
@@ -131,7 +132,7 @@ class RedefineConstraintCommand:
         ConstraintSelectionObserver( 
                     PlaneSelectionGate(), 
                     self.UpdateConstraint, 
-                    taskDialog_title ='add plane constraint', 
+                    taskDialog_title ='Ajouter une contrainte de plan', 
                     taskDialog_iconPath = ':/assembly2/icons/planeConstraint.svg', 
                     taskDialog_text = selection_text,
                     secondSelectionGate = PlaneSelectionGate2() )
@@ -140,5 +141,5 @@ class RedefineConstraintCommand:
         parseSelection( selection, self.constObject)
 
     def GetResources(self): 
-        return { 'MenuText': 'Redefine' } 
+        return { 'MenuText': 'Redefinir' } 
 FreeCADGui.addCommand('redefinePlaneConstraint', RedefineConstraintCommand())

@@ -232,7 +232,7 @@ def rotation_matrix_axis_and_angle(R, debug=False, checkAnswer=True, errorThresh
             u_y = 0.5* (R[0,2]-R[2,0]) / sin(angle) 
             u_z = 0.5* (R[1,0]-R[0,1]) / sin(angle)
             if abs( (1-cos(angle))*u_x*u_y - u_z*sin(angle) - R[0,1] ) < errorThreshold:
-                msg = 'abs( (1-cos(angle))*u_x*u_y - u_z*sin(angle) - R[0,1] ) < 10**-6 check passed' 
+                msg = 'abs( (1-cos(angle))*u_x*u_y - u_z*sin(angle) - R[0,1] ) < 10**-6 verification passee' 
                 break
         axis = numpy.array([u_x, u_y, u_z])
         error  = norm(axis_rotation_matrix(angle, *axis) - R)
@@ -240,7 +240,7 @@ def rotation_matrix_axis_and_angle(R, debug=False, checkAnswer=True, errorThresh
         if error > errorThreshold:
             axis, angle = rotation_matrix_axis_and_angle_2(R, errorThreshold=errorThreshold, debug=debug, msg=msg)
     else:
-        msg = 'abs(a % pi) > angle_pi_tol and abs(pi - (a % pi)) > angle_pi_tol'
+        msg = 'abs(a % pi) > angle_pi_tol et abs(pi - (a % pi)) > angle_pi_tol'
         axis, angle = rotation_matrix_axis_and_angle_2( R, errorThreshold=errorThreshold, debug=debug, msg=msg)
     if numpy.isnan( angle ):
         raise RuntimeError('locals %s' % locals() )
@@ -357,7 +357,7 @@ def distance_between_axes( p1, u1, p2, u2):
         try:
             t1, t2 = numpy.linalg.solve(A,-b)
         except numpy.linalg.LinAlgError:
-            print('distance_between_axes, failed to solve problem due to LinAlgError, using numerical solver instead')
+            print('distance entre les axes, n a pas reussi a resoudre le probleme en raison de LinAlgError, en utilisant le solveur numerique a la place')
             print('  variables : ')
             print('    p1 : %s' % p1 )
             print('    u1 : %s' % u1 )
@@ -551,7 +551,7 @@ if __name__ == '__main__':
         print('  lib3D    \t%s' % str(euler_to_quaternion(ang1,ang2,ang3)))
         print('')
 
-    print('checking that rotation using euler angles and rotation using quaterions gives the same results')
+    print('verifier que la rotation en utilisant des angles euler et la rotation en utilisant des quaternions donne les memes resultats')
     p = numpy.array([1,2,3])
     print('p  %s' % p)
     u = rand(3) - 0.5
