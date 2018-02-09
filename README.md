@@ -1,4 +1,4 @@
-FreeCAD_assembly2 Tradduit en français
+FreeCAD_assembly2 Traduit en français
 ======================================
 
 Établi d'assemblage pour FreeCAD v0.15, 0.16 et 0.17 avec support pour l'importation de pièces à partir de fichiers externes.
