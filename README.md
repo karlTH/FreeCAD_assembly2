@@ -1,20 +1,20 @@
-FreeCAD_assembly2
-=================
+FreeCAD_assembly2 Tradduit en français
+======================================
 
-Assembly workbench for FreeCAD v0.15, 0.16 and 0.17 with support for importing parts from external files.
-Although the original programmer of the workbench (hamish) is no longer active
-this workbench is still maintained as good as possible.
-Feel free to post issues and pull requests.
-Assembly2 requires numpy to be installed (bundled with FreeCAD since 0.15.4671).
-Thanks to Maurice (easyw-fc) assembly2 will work with files from FreeCAD 0.17.
+Établi d'assemblage pour FreeCAD v0.15, 0.16 et 0.17 avec support pour l'importation de pièces à partir de fichiers externes.
+Bien que le programmeur original du workbench (hamish) ne soit plus actif
+cet atelier est toujours maintenu aussi bon que possible.
+Ne hésitez pas à poster des problèmes et tirer des demandes.
+Assembly2 requiert numpy pour être installé (fourni avec FreeCAD depuis 0.15.4671).
+Merci à Maurice (easyw-fc) assembly2 fonctionnera avec les fichiers de FreeCAD 0.17.
 
 
 Linux Installation Instructions
 -------------------------------
 
-For Ubuntu (Linux Mint) we recommend to add the community ppa to your systems software
-resources and install via the sysnaptic package manager the addon of your liking.
-Refer to here for more information:
+Pour Ubuntu (Linux Mint), nous recommandons d'ajouter la communauté ppa à votre logiciel système
+ressources et installer via le gestionnaire de paquets sysnaptic l'addon de votre goût.
+Reportez-vous ici pour plus d'informations:
 https://launchpad.net/~freecad-community/+archive/ubuntu/ppa
 
 On other Linux distros you may try to install manually via BASH and git:
