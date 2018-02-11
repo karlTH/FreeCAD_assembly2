@@ -74,8 +74,8 @@ class UndoConstraint:
     def GetResources(self):
         return {
             'Pixmap' : os.path.join( iconPath , 'EditUndo.svg'), 
-            'MenuText': 'Annuler la derniere contrainte',
-            'ToolTip': 'Annuler la derniere contrainte'
+            'MenuText': u'Annuler la derni\xE8re contrainte'.encode("utf-8"),
+            'ToolTip': u'Annuler la derni\xE8re contrainte'.encode("utf-8")
             }
 
 FreeCADGui.addCommand('a2_UndoConstraint', UndoConstraint())

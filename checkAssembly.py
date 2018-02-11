@@ -55,7 +55,7 @@ class CheckAssemblyCommand:
             else:
                 QtGui.QMessageBox.information(  QtGui.qApp.activeWindow(), "Verification de l assemblage", "Passe:\n  -Aucun chevauchement / interference detectee." + errorMsg)
     def GetResources(self): 
-        msg = 'Verifier l\'assemblage pour le chevauchement / l\'interference des pieces'
+        msg = u'V\xE9rifier l\'assemblage pour le chevauchement / l\'interf\xE9rence des pi\xE8ces'.encode("utf-8")
         return {
             'Pixmap' : ':/assembly2/icons/checkAssembly.svg', 
             'MenuText': msg, 

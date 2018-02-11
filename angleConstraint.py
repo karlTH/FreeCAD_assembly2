@@ -92,7 +92,7 @@ class AngleConstraintCommand:
                     taskDialog_text = selection_text )
                
      def GetResources(self): 
-          msg = 'Creer une contrainte angulaire entre deux plans'
+          msg = u'Cr\xE9er une contrainte angulaire entre deux plans'.encode("utf-8")
           return {
                'Pixmap' : ':/assembly2/icons/angleConstraint.svg', 
                'MenuText': msg, 
@@ -118,5 +118,5 @@ class RedefineConstraintCommand:
         parseSelection( selection, self.constObject)
 
     def GetResources(self): 
-        return { 'MenuText': 'Redefinir' } 
+        return { 'MenuText': u'Red\xE9finir'.encode("utf-8") } 
 FreeCADGui.addCommand('redefineAngleConstraint', RedefineConstraintCommand())

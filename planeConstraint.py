@@ -141,5 +141,5 @@ class RedefineConstraintCommand:
         parseSelection( selection, self.constObject)
 
     def GetResources(self): 
-        return { 'MenuText': 'Redefinir' } 
+        return { 'MenuText': u'Red\xE9finir'.encode("utf-8") } 
 FreeCADGui.addCommand('redefinePlaneConstraint', RedefineConstraintCommand())

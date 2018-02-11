@@ -193,7 +193,7 @@ class SelectConstraintObjectsCommand:
         FreeCADGui.Selection.addSelection( FreeCAD.ActiveDocument.getObject(obj1Name) )
         FreeCADGui.Selection.addSelection( FreeCAD.ActiveDocument.getObject(obj2Name) )
     def GetResources(self): 
-        return { 'MenuText': 'Selectionner des objets' }
+        return { 'MenuText': u'S\xE9lectionner des objets'.encode("utf-8") }
 if FreeCAD.GuiUp:
     FreeCADGui.addCommand('selectConstraintObjects', SelectConstraintObjectsCommand())
 
@@ -205,7 +205,7 @@ class SelectConstraintElementsCommand:
         FreeCADGui.Selection.addSelection( FreeCAD.ActiveDocument.getObject(obj1Name), constraintObj.SubElement1 )
         FreeCADGui.Selection.addSelection( FreeCAD.ActiveDocument.getObject(obj2Name), constraintObj.SubElement2 )
     def GetResources(self): 
-        return { 'MenuText': 'Selectionner des elements d\'objet' }
+        return { 'MenuText': u'S\xE9lectionner des elements d\'objet'.encode("utf-8") }
 if FreeCAD.GuiUp:
     FreeCADGui.addCommand('selectConstraintElements', SelectConstraintElementsCommand())
 

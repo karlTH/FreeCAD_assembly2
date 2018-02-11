@@ -124,5 +124,5 @@ class RedefineConstraintCommand:
     def UpdateConstraint(self, selection):
         parseSelection( selection, self.constObject)
     def GetResources(self): 
-        return { 'MenuText': 'Redefinir' } 
+        return { 'MenuText': u'Red\xE9finir'.encode("utf-8") } 
 FreeCADGui.addCommand('redefineAxialConstraint', RedefineConstraintCommand())

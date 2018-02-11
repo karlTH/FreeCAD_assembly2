@@ -173,8 +173,8 @@ class Assembly2SolveConstraintsCommand:
     def GetResources(self): 
         return {
             'Pixmap' : ':/assembly2/icons/assembly2SolveConstraints.svg', 
-            'MenuText': 'Resoudre les contraintes Assembly 2', 
-            'ToolTip': 'Resoudre les contraintes Assembly 2'
+            'MenuText': u'R\xE9soudre les contraintes Assembly 2'.encode("utf-8"), 
+            'ToolTip': u'R\xE9soudre les contraintes Assembly 2'.encode("utf-8")
             } 
 
 FreeCADGui.addCommand('assembly2SolveConstraints', Assembly2SolveConstraintsCommand())

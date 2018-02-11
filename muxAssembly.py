@@ -100,8 +100,8 @@ class MuxAssemblyCommand:
 
        
     def GetResources(self):
-        msg = 'Combiner toutes les parties en un seul objet \n\
-ou combiner toutes les parties selectionnees en un seul objet\n(par exemple pour creer un dessin de tout ou partie de l assemblage)'
+        msg = u'Combiner toutes les parties en un seul objet \n\
+ou combiner toutes les parties s\xE9lectionn\xE9es en un seul objet\n(par exemple pour cr\xE9er un dessin de tout ou partie de l\'assemblage)'.encode("utf-8")
         return {
             'Pixmap' : ':/assembly2/icons/muxAssembly.svg',
             'MenuText': msg,
@@ -151,9 +151,9 @@ class MuxAssemblyRefreshCommand:
         
 
     def GetResources(self):
-        msg = 'Rafraichir tout l assemblage mixte\n\
-ou rafraichir tout l assemblage mixte selectionne\n\
-utilisez la propriete Lecture seule pour eviter une actualisation accidentelle'
+        msg = u'Rafra\xEEchir tout l\'assemblage mixte\n\
+ou rafra\xEEchir tout l\'assemblage mixte s\xE9lectionn\xE9\n\
+utilisez la propri\xE9t\xE9 Lecture seule pour \xE9viter une actualisation accidentelle'.encode("utf-8")
         return {
             'Pixmap' : ':/assembly2/icons/muxAssemblyRefresh.svg',
             'MenuText': msg,
@@ -176,8 +176,8 @@ class RandomColorAllCommand:
 
     def GetResources(self):
         return {
-            'MenuText': 'Appliquer une couleur aleatoire aa tous les objets importes',
-            'ToolTip': 'Appliquer une couleur aleatoire aa tous les objets importes'
+            'MenuText': u'Appliquer une couleur al\xE9atoire \xE0 tous les objets import\xE9s'.encode("utf-8"),
+            'ToolTip': u'Appliquer une couleur al\xE9atoire \xE0 tous les objets import\xE9s'.encode("utf-8")
             }
 
 FreeCADGui.addCommand('assembly2_randomColorAll', RandomColorAllCommand())

@@ -458,7 +458,7 @@ def spline_interp( P, X, n_per_seg ):
 
 
 if __name__ == "__main__":
-    print('Testing interpolation')
+    print('Teste interpolation')
     P = [
         [ 0, 0],
         [ 1, -1],

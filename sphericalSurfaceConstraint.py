@@ -99,8 +99,8 @@ class SphericalSurfaceConstraintCommand:
     def GetResources(self): 
         return {
             'Pixmap' : ':/assembly2/icons/sphericalSurfaceConstraint.svg', 
-            'MenuText': 'ajouter une contrainte de surface spherique', 
-            'ToolTip': 'Ajouter une contrainte de surface spherique entre deux objets'
+            'MenuText': u'ajouter une contrainte de surface sph\xE9rique'.encode("utf-8"), 
+            'ToolTip': u'Ajouter une contrainte de surface sph\xE9rique entre deux objets'.encode("utf-8")
             } 
 
 FreeCADGui.addCommand('addSphericalSurfaceConstraint', SphericalSurfaceConstraintCommand())
@@ -114,7 +114,7 @@ class RedefineSphericalSurfaceConstraintCommand:
         ConstraintSelectionObserver( 
             SphericalSurfaceSelectionGate(), 
             self.UpdateConstraint,
-            taskDialog_title ='redefinir la contrainte de surface spherique', 
+            taskDialog_title =u'red\xE9finir la contrainte de surface spherique'.encode("utf-8"), 
             taskDialog_iconPath = ':/assembly2/icons/sphericalSurfaceConstraint.svg', 
             taskDialog_text = selection_text
             )
@@ -122,5 +122,5 @@ class RedefineSphericalSurfaceConstraintCommand:
         parseSelection( selection, self.constObject)
 
     def GetResources(self): 
-        return { 'MenuText': 'Redefine' } 
+        return { 'MenuText': u'Red\xE9fine'.encode("utf-8") } 
 FreeCADGui.addCommand('redefineSphericalSurfaceConstraint', RedefineSphericalSurfaceConstraintCommand())

@@ -125,7 +125,7 @@ class RedefineCircularEdgeConstraintCommand:
         parseSelection( selection, self.constObject)
 
     def GetResources(self): 
-        return { 'MenuText': 'Redefinir' } 
+        return { 'MenuText': u'Red\xE9finir'.encode("utf-8") } 
 FreeCADGui.addCommand('redefineCircularEdgeConstraint', RedefineCircularEdgeConstraintCommand())
 
 
@@ -158,8 +158,8 @@ class FlipLastConstraintsDirectionCommand:
     def GetResources(self): 
         return {
             'Pixmap' : ':/assembly2/icons/flipConstraint.svg' , 
-            'MenuText': "Retourner la derniere direction de la contrainte", 
-            'ToolTip': 'Retourne la direction de la derniere contrainte ajoutee'
+            'MenuText': u"Retourner la derni\xE8re direction de la contrainte".encode("utf-8"), 
+            'ToolTip': u'Retourne la direction de la derni\xE8re contrainte ajout\xE9e'.encode("utf-8")
             } 
 
 FreeCADGui.addCommand('flipLastConstraintsDirection', FlipLastConstraintsDirectionCommand())
@@ -187,8 +187,8 @@ class LockRotationOfLastConstraintAddedCommand:
     def GetResources(self): 
         return {
             'Pixmap' : ':/assembly2/icons/lockRotation.svg' , 
-            'MenuText': "Definissez lockRotation-> True pour la derniere contrainte ajoutee", 
-            'ToolTip': 'Definissez lockRotation-> True pour la derniere contrainte ajoutee'
+            'MenuText': u"D\xE9finissez lockRotation-> True pour la derni\xE8re contrainte ajout\xE9e".encode("utf-8"), 
+            'ToolTip': u'D\xE9finissez lockRotation-> True pour la derni\xE8re contrainte ajout\xE9e'.encode("utf-8")
             } 
 
 FreeCADGui.addCommand('lockLastConstraintsRotation', LockRotationOfLastConstraintAddedCommand())

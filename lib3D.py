@@ -551,7 +551,7 @@ if __name__ == '__main__':
         print('  lib3D    \t%s' % str(euler_to_quaternion(ang1,ang2,ang3)))
         print('')
 
-    print('verifier que la rotation en utilisant des angles euler et la rotation en utilisant des quaternions donne les memes resultats')
+    print(u'v\xE9rifier que la rotation en utilisant des angles euler et la rotation en utilisant des quaternions donne les m\xEAmes r\xE9sultats'.encode("utf-8"))
     p = numpy.array([1,2,3])
     print('p  %s' % p)
     u = rand(3) - 0.5

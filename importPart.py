@@ -5,6 +5,7 @@ When update parts is executed, this library import or updates the parts in the a
 if __name__ == '__main__': #then testing library.
     import sys
     sys.path.append('/usr/lib/freecad/lib/') #path to FreeCAD library on Linux
+	
     import FreeCADGui
     assert not hasattr(FreeCADGui, 'addCommand')
     FreeCADGui.addCommand = lambda x,y: 0
@@ -159,8 +160,8 @@ class ImportPartCommand:
     def GetResources(self):
         return {
             'Pixmap' : ':/assembly2/icons/importPart.svg',
-            'MenuText': 'Importer une piece depuis un autre document FreeCAD',
-            'ToolTip': 'Importer une piece depuis un autre document FreeCAD'
+            'MenuText': u'Importer une pi\xE8ce depuis un autre document FreeCAD'.encode("utf-8"),
+            'ToolTip': u'Importer une pi\xE8ce depuis un autre document FreeCAD'.encode("utf-8")
             }
 FreeCADGui.addCommand('importPart', ImportPartCommand())
 
@@ -295,8 +296,8 @@ class UpdateImportedPartsCommand:
     def GetResources(self):
         return {
             'Pixmap' : ':/assembly2/icons/importPart_update.svg',
-            'MenuText': 'Mettre a jour les pieces importees dans l\'assemblage',
-            'ToolTip': 'Mettre a jour les pieces importees dans l\'assemblage'
+            'MenuText': u'Mettre \xE0 jour les pi\xE8ces import\xE9es dans l\'assemblage'.encode("utf-8"),
+            'ToolTip': u'Mettre \xE0 jour les pi\xE8ces import\xE9es dans l\'assemblage'.encode("utf-8")
             }
 
 
@@ -395,8 +396,8 @@ class MovePartCommand:
     def GetResources(self):
         return {
             'Pixmap' : ':/assembly2/icons/Draft_Move.svg',
-            'MenuText': 'Deplacer',
-            'ToolTip': 'Deplacer la piece  ( shift+click to copy )'
+            'MenuText': u'D\xE9placer'.encode("utf-8"),
+            'ToolTip': u'D\xE9placer la pi\xE8ce  ( shift+click to copy )'.encode("utf-8")
             }
 
 FreeCADGui.addCommand('assembly2_movePart', MovePartCommand())
@@ -409,8 +410,8 @@ class DuplicatePartCommand:
 
     def GetResources(self):
         return {
-            'MenuText': 'duplicate',
-            'ToolTip': 'duplicate part (hold shift for multiple)'
+            'MenuText': 'dupliquer',
+            'ToolTip': u'dupliquer la pi\xE8ce (tenir shift pour multiple)'.encode("utf-8")
             }
 
 FreeCADGui.addCommand('assembly2_duplicatePart', DuplicatePartCommand())
@@ -435,7 +436,7 @@ class EditPartCommand:
             FreeCADGui.ActiveDocument=FreeCADGui.getDocument( name )
     def GetResources(self):
         return {
-            'MenuText': 'edit',
+            'MenuText': 'editer',
             }
 FreeCADGui.addCommand('assembly2_editImportedPart', EditPartCommand())
 
